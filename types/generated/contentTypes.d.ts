@@ -482,6 +482,50 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 50;
+      }>;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -633,43 +677,203 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
+export interface ApiAvailableAvailable extends Schema.CollectionType {
+  collectionName: 'availables';
   info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
+    singularName: 'available';
+    pluralName: 'availables';
+    displayName: 'Available';
     description: '';
   };
   options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
+    draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 50;
-      }>;
-    code: Attribute.String & Attribute.Unique;
+    name: Attribute.String;
+    logo: Attribute.Media;
+    description: Attribute.String;
+    priority: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
+      'api::available.available',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
+      'api::available.available',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiBreadcrumbJsonLdBreadcrumbJsonLd
+  extends Schema.CollectionType {
+  collectionName: 'breadcrumb_json_lds';
+  info: {
+    singularName: 'breadcrumb-json-ld';
+    pluralName: 'breadcrumb-json-lds';
+    displayName: 'BreadcrumbJsonLd';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    position: Attribute.BigInteger;
+    name: Attribute.String;
+    item: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::breadcrumb-json-ld.breadcrumb-json-ld',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::breadcrumb-json-ld.breadcrumb-json-ld',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiContentContent extends Schema.CollectionType {
+  collectionName: 'contents';
+  info: {
+    singularName: 'content';
+    pluralName: 'contents';
+    displayName: 'Content';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    slug: Attribute.String;
+    title: Attribute.String;
+    image: Attribute.Media;
+    image_sp: Attribute.Media;
+    whats_new: Attribute.RichText;
+    Content: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::content.content',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::content.content',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOpenGraphOpenGraph extends Schema.CollectionType {
+  collectionName: 'open_graphs';
+  info: {
+    singularName: 'open-graph';
+    pluralName: 'open-graphs';
+    displayName: 'OpenGraph';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    slug: Attribute.String;
+    type: Attribute.String;
+    url: Attribute.String;
+    title: Attribute.String;
+    description: Attribute.String;
+    seo_images: Attribute.Relation<
+      'api::open-graph.open-graph',
+      'oneToMany',
+      'api::seo-image.seo-image'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::open-graph.open-graph',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::open-graph.open-graph',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSeoImageSeoImage extends Schema.CollectionType {
+  collectionName: 'seo_images';
+  info: {
+    singularName: 'seo-image';
+    pluralName: 'seo-images';
+    displayName: 'Seo_image';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    iamge: Attribute.Media;
+    alt: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::seo-image.seo-image',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::seo-image.seo-image',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTwitterTwitter extends Schema.CollectionType {
+  collectionName: 'twitters';
+  info: {
+    singularName: 'twitter';
+    pluralName: 'twitters';
+    displayName: 'Twitter';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    handle: Attribute.String;
+    site: Attribute.String;
+    cardtype: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::twitter.twitter',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::twitter.twitter',
       'oneToOne',
       'admin::user'
     > &
@@ -689,10 +893,16 @@ declare module '@strapi/types' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
+      'api::available.available': ApiAvailableAvailable;
+      'api::breadcrumb-json-ld.breadcrumb-json-ld': ApiBreadcrumbJsonLdBreadcrumbJsonLd;
+      'api::content.content': ApiContentContent;
+      'api::open-graph.open-graph': ApiOpenGraphOpenGraph;
+      'api::seo-image.seo-image': ApiSeoImageSeoImage;
+      'api::twitter.twitter': ApiTwitterTwitter;
     }
   }
 }
