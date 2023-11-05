@@ -750,6 +750,7 @@ export interface ApiContentContent extends Schema.CollectionType {
     singularName: 'content';
     pluralName: 'contents';
     displayName: 'Content';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -761,6 +762,7 @@ export interface ApiContentContent extends Schema.CollectionType {
     image_sp: Attribute.Media;
     whats_new: Attribute.RichText;
     Content: Attribute.RichText;
+    movie: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
