@@ -43,18 +43,19 @@
     "whats_new": {
       "type": "richtext"
     },
-    "Content": {
+    "content": {
       "type": "richtext"
     },
     "movie": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     }
   }
 }

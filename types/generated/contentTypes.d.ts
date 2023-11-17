@@ -761,7 +761,7 @@ export interface ApiContentContent extends Schema.CollectionType {
     image: Attribute.Media;
     image_sp: Attribute.Media;
     whats_new: Attribute.RichText;
-    Content: Attribute.RichText;
+    content: Attribute.RichText;
     movie: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
