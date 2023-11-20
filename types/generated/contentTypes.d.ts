@@ -820,6 +820,43 @@ export interface ApiOpenGraphOpenGraph extends Schema.CollectionType {
   };
 }
 
+export interface ApiPortfolioPortfolio extends Schema.CollectionType {
+  collectionName: 'portfolios';
+  info: {
+    singularName: 'portfolio';
+    pluralName: 'portfolios';
+    displayName: 'Portfolios';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    slug: Attribute.String;
+    title: Attribute.String;
+    image: Attribute.Media;
+    image_sp: Attribute.Media;
+    content: Attribute.RichText;
+    movie: Attribute.Media;
+    whats_new: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::portfolio.portfolio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::portfolio.portfolio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSeoImageSeoImage extends Schema.CollectionType {
   collectionName: 'seo_images';
   info: {
@@ -903,6 +940,7 @@ declare module '@strapi/types' {
       'api::breadcrumb-json-ld.breadcrumb-json-ld': ApiBreadcrumbJsonLdBreadcrumbJsonLd;
       'api::content.content': ApiContentContent;
       'api::open-graph.open-graph': ApiOpenGraphOpenGraph;
+      'api::portfolio.portfolio': ApiPortfolioPortfolio;
       'api::seo-image.seo-image': ApiSeoImageSeoImage;
       'api::twitter.twitter': ApiTwitterTwitter;
     }
